@@ -1,0 +1,18 @@
+BugTrack
+========
+
+Compressed data is corrupted in XP because of code:
+
+	Winsock1.getData data, bytesTotal - 1 
+
+We added the - 1 because 98 seems to add an extra byte to the data.
+Removed the - 1 in XP because decompression was failing with "Z_DATA_ERROR"
+meaning the data was corrupt.
+
+It HAD to be somewhere in the transmission, so the logical choice was in DataArrival.
+Need to test once more under windows 98.
+
+Funny.
+
+It was working with bytesTotal - 1 before, now it works without it.
+
